@@ -171,8 +171,8 @@ The default controller mode button combinations are:
 - Mod X + Start + R - Rivals 2 mode
 - Mod X + Start + A - Smash 64 mode
 - NOTE: If plugging into N64 Console for Smash 64:
-  Hold A on plugin for pico-based controllers
-  Hold C-Left on plugin for arduino-based controllers
+  Hold A on plugin for pico-based (pico and b0xx r4) controllers
+  Hold C-Left on plugin for arduino-based (b0xx r1, r2, r3 and lbx) controllers
 
 Default keyboard mode button combinations (only available when using DInput backend, **not** with XInput):
 - Mod Y + Start + L - Default keyboard mode
