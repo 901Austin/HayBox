@@ -11,6 +11,7 @@
 #include "input/GpioButtonInput.hpp"
 #include "modes/Melee20Button.hpp"
 #include "stdlib.hpp"
+#include "modes/Smash64.hpp"
 
 const int brook_up_pin = 17;
 const int brook_l_pin = 30;
@@ -133,10 +134,17 @@ void setup() {
         backends = new CommunicationBackend *[backend_count] { primary_backend };
     }
 
-    // Default to Melee mode.
-    primary_backend->SetGameMode(
-        new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false })
-    );
+    // Default to Melee mode if C-Left button not held
+    if (!button_holds.c_left) {
+        primary_backend->SetGameMode(
+        new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false }) 
+        );
+    }
+    else {
+        primary_backend->SetGameMode(
+        new Smash64(socd::SOCD_2IP, { .c_stick_time = 5 })
+        );
+    }
 }
 
 void loop() {
