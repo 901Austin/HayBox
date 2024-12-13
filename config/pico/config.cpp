@@ -16,6 +16,7 @@
 #include "joybus_utils.hpp"
 #include "modes/Melee20Button.hpp"
 #include "stdlib.hpp"
+#include "modes/Smash64.hpp" 
 
 #include <pico/bootrom.h>
 
@@ -55,7 +56,7 @@ GpioButtonMapping button_mappings[] = {
 size_t button_count = sizeof(button_mappings) / sizeof(GpioButtonMapping);
 
 const Pinout pinout = {
-    .joybus_data = 28,
+    .joybus_data = 0,
     .mux = -1,
     .nunchuk_detect = -1,
     .nunchuk_sda = -1,
@@ -128,10 +129,17 @@ void setup() {
         backends = new CommunicationBackend *[backend_count] { primary_backend };
     }
 
-    // Default to Melee mode.
-    primary_backend->SetGameMode(
-        new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false })
-    );
+    // Default to Melee mode if A button not held
+    if (!button_holds.a) {
+        primary_backend->SetGameMode(
+        new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false }) 
+        );
+    }
+    else {
+        primary_backend->SetGameMode(
+        new Smash64(socd::SOCD_2IP, { .c_stick_time = 5 })
+        );
+    }
 }
 
 void loop() {
