@@ -56,7 +56,7 @@ GpioButtonMapping button_mappings[] = {
 size_t button_count = sizeof(button_mappings) / sizeof(GpioButtonMapping);
 
 const Pinout pinout = {
-    .joybus_data = 0,
+    .joybus_data = 28,
     .mux = -1,
     .nunchuk_detect = -1,
     .nunchuk_sda = -1,
